@@ -1,0 +1,121 @@
+delimiter //
+create procedure test1()
+begin
+declare id integer;
+declare name varchar(100) default "";
+declare is_done integer default 0;
+declare id_cursor cursor for
+select emp_id from o_empid;
+declare continue handler for not found set is_done = 1;
+open id_cursor;
+cpy : loop
+fetch id_cursor into id;
+if is_done = 1 then leave cpy;
+end if;
+insert into n_empid values (id, name);
+end loop cpy;
+close id_cursor;
+end//
+delimiter ;
+
+---------------------------------------------------------------------------------
+
+delimiter //
+create procedure test2()
+begin
+declare id integer;
+declare name varchar(100) default "";
+declare is_done integer default 0;
+declare id_cursor cursor for select emp_id from o_empid;
+declare name_cursor cursor for select emp_name from o_empid;
+declare continue handler for not found set is_done = 1;
+declare continue handler for 1062 set is_done = 0;
+open id_cursor;
+open name_cursor;
+cpy : loop
+fetch id_cursor into id;
+fetch name_cursor into name;
+if is_done = 1 then leave cpy;
+end if;
+insert into n_empid values (id, name);
+end loop cpy;
+close id_cursor;
+end//
+delimiter ;
+
+---------------------------------------------------------------------------------
+
+delimiter //
+create procedure test3(min int, max int)
+begin
+declare id integer;
+declare name varchar(100) default "";
+declare is_done integer default 0;
+declare id_cursor cursor for select emp_id, emp_name from o_empid where emp_id between min and max;
+declare continue handler for not found set is_done = 1;
+declare continue handler for 1062 set is_done = 0;
+open id_cursor;
+cpy : loop
+fetch id_cursor into id, name;
+if is_done = 1 then leave cpy;
+end if;
+insert into n_empid values (id, name);
+end loop cpy;
+close id_cursor;
+end//
+delimiter ;
+
+---------------------------------------------------------------------------------
+
+delimiter //
+create procedure test4(min int, max int)
+begin
+declare id integer;
+declare nid integer;
+declare name varchar(100) default "";
+declare is_done integer default 0;
+declare is_present integer default 0;
+declare cpy_cursor cursor for select emp_id, emp_name from o_empid where emp_id between min and max;
+declare verify_cursor cursor for select emp_id from n_empid;
+declare continue handler for not found set is_done = 1;
+open cpy_cursor;
+cpy : loop
+fetch cpy_cursor into id, name;
+if is_done = 1 then leave cpy;
+end if;
+open verify_cursor;
+verify : loop
+fetch verify_cursor into nid;
+if is_done = 1 then
+set is_done = 0;
+close verify_cursor; 
+leave verify;
+end if;
+if id = nid then 
+set is_present = 1;
+set is_done = 1;
+end if;
+end loop verify;
+if is_present = 0 then
+insert into n_empid values (id, name);
+elseif is_present = 1 then
+set is_present = 0;
+end if;
+end loop cpy;
+close cpy_cursor;
+end//
+delimiter ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

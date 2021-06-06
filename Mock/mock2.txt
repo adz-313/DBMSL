@@ -1,0 +1,14 @@
+db.details.insertOne({"name":{"firstName":"amit", "lastName":"patil"}, "age":24, "occupation":{"role" : "engineer", "type" : "civil"}, "salary": 60000})
+
+db.details.insertOne({"name":{"firstName":"atharva", "lastName":"sharma"}, "age":25, "occupation":{"role" : "engineer", "type" : "mechanical"}, "salary": 85000})
+
+db.details.insertOne({"name":{"firstName":"ashok", "lastName":"verma"}, "age":22, "occupation":{"role" : "doctor", "type" : "neurosurgeon"}, "salary": 1500000})
+
+db.details.insertOne({"name":{"firstName":"ashish", "lastName":"patil"}, "age":25, "occupation":{"role" : "engineer", "type" : "computer"}, "salary": 90000})
+
+db.details.insertOne({"name":{"firstName":"amit", "lastName":"singh"}, "age":28, "occupation":{"role" : "doctor", "type" : "ENT"}, "salary": 120000})
+
+db.details.insertOne({"name":{"firstName":"akshay", "lastName":"chavan"}, "age":27, "occupation":{"role" : "engineer", "type" : "computer"}, "salary": 12000})
+
+db.details.insertOne({"name":{"firstName":"yash", "lastName":"pandey"}, "age":25, "occupation":{"role" : "engineer", "type" : "electrical"}, "salary": 75000})
+

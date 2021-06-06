@@ -1,0 +1,4 @@
+Students should submit a soft copy of the mini-project report. Project Report which will be consist of documentation 
+related to different phases of Software Development Life Cycle: Title of the Project, Abstract, Introduction, Scope, 
+Requirements, Data Modeling features, Data Dictionary, Relational Database Design, Database Normalization, Graphical User 
+Interface, Source Code, Testing document, Conclusion.

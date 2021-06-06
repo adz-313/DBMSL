@@ -1,0 +1,100 @@
+delimiter //
+create trigger t1
+before insert
+on employee for each row
+begin
+set new.first_name = trim(new.first_name);
+set new.last_name = trim(new.last_name);
+set new.job_profile = upper(new.job_profile);
+end;
+//
+
+delimiter //
+create trigger t2
+after insert
+on employee for each row
+begin
+declare emp_cnt integer;
+declare sal_exp integer;
+declare ifempty integer;
+select count(emp_count) into ifempty from company_info;
+if ifempty != 0 then
+select emp_count, salary_expenses into emp_cnt, sal_exp from company_info where emp_count = ifempty;
+insert into company_info values(emp_cnt+1, sal_exp+new.salary);
+else
+insert into company_info values(1, new.salary);
+end if;
+insert into emp_log values(new.emp_id, 0, new.salary, current_time(), 'Active');
+end;
+//
+
+delimiter //
+create trigger t3
+before update
+on employee for each row
+begin
+declare hhra integer;
+if old.hra > 1 then
+set new.hra = new.hra/100;
+elseif new.hra > 1 then
+set new.hra = new.hra/100;
+end if;
+end;
+//
+
+delimiter //
+create trigger t4
+after update
+on employee for each row
+begin
+if old.hra != new.hra then
+insert into emp_log values(new.emp_id, old.salary, (old.salary*new.hra)+old.salary, current_time(), 'Active');
+end if;
+end;
+//
+
+delimiter //
+create trigger t5
+before delete
+on employee for each row
+begin
+insert into emp_log values(old.emp_id, old.salary, old.salary, current_time(), 'Deleted');
+end;
+//
+
+delimiter //
+create trigger t6
+after delete
+on employee for each row
+begin
+declare emp_cnt integer;
+declare sal_exp integer;
+declare maxcount integer;
+select count(emp_count) into maxcount from company_info;
+if ifempty != 0 then
+select emp_count, salary_expenses into emp_cnt, sal_exp from company_info where emp_count = maxcount;
+insert into company_info values(emp_cnt-1, sal_exp-old.salary);
+end if;
+end;
+//
+
+delimiter //
+create trigger t7
+after delete
+on employee for each row
+begin
+declare emp_cnt integer;
+declare sal_exp integer;
+declare maxcount integer;
+declare cursor compinfo as select * from company_info;
+declare continue handler for not found set is_done = 1;
+open compinfo;
+loop1 : loop
+fetch compinfo into emp_cnt, sal_exp;
+
+end;
+//
+
+
+
+

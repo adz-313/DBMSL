@@ -1,0 +1,26 @@
+use assgnb2;
+
+db.student.insertMany([{"name": "a","age": 15, "div": "a"},{"name": "b","age": 16,"div": "b"}]);
+
+db.student.save({"name": "d","age": 16, "div": "d"})
+
+db.student.insertMany([{"name": "c","age": 16, "div": "c"},{"name": "e","age": 16,"div": "e"},{"name": "f","age": 17,"div": "f"}]);
+
+db.student.insert({"name": {"firstName": "h_first", "lastName": "h_last"},"age": 16, "div": "h"})
+
+db.student.find({age: {$gt: 16}}).pretty()
+
+db.student.find({age: {$lte: 16}}).pretty()
+
+db.student.find({age: {$in: [16,17]}}).pretty()
+
+db.student.update({name: "h"}, {$set : {age: 17, div: "h"}},{upsert: true});
+
+db.student.remove({name: "d"})
+
+db.student.remove({age: 15},true)
+
+db.student.remove({})
+
+
+

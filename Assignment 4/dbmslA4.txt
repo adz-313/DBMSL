@@ -1,0 +1,9 @@
+1. select * from customer natural join orders;
+2. select title, author_name, country from book right join author on book.author_no = author.author_no;
+3. select customer.cust_no, cust_fname, cust_lname, order_no from customer left join orders on customer.cust_no = orders.cust_no where order_no is null;
+4. select title, book.ISBN, order_no from orders right join book on book.ISBN = orders.ISBN where order_no is null;
+5. select cust_fname, title, author_no, pub_year from customer left join orders on customer.cust_no = orders.cust_no right join book on book.ISBN = orders.ISBN where book.ISBN = 794615832;
+6. select count(cust_fname),count(title) from customer left join orders on customer.cust_no = orders.cust_no right join book on book.ISBN = orders.ISBN;
+7. select order_no, cust_no, orders.ISBN from orders left join book on orders.ISBN = book.ISBN where title like 'the%';
+8. select cust_company from customer left join orders on customer.cust_no = orders.cust_no where odate like '2015%';
+9. create view query9 as select author_name,country,title,unit_price,publisher_no,pub_year from author right join book on book.author_no = author.author_no;

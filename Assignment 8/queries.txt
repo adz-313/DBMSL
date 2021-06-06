@@ -1,0 +1,15 @@
+delimiter //
+create trigger updateI
+after update
+on student for each row
+begin
+insert into alumni values(old.rollno, old.name, old.dateOfAdmission, old.branch, old.percent, old.status);
+end//
+
+delimiter //
+create trigger deleteI
+after delete
+on student for each row
+begin
+insert into alumni values(old.rollno, old.name, old.dateOfAdmission, old.branch, old.percent, old.status);
+end//

@@ -1,0 +1,3 @@
+db.students.mapReduce( function() { emit(this.name, this.marks);}, function(key, values) { return Array.sum(values)}, { query: {marks: {$lt: 15}}, out: "retest_students" } )
+
+db.students.mapReduce( function() { emit(this.name, this.marks);}, function(key, values) { return Array.sum(values)}, { query: {marks: {$gte: 18}}, out: "grade_o" } )

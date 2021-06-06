@@ -1,0 +1,14 @@
+db.employee.insertOne({"name":{"firstName":"amit", "lastName":"patil"}, "age":24, "id":1245, "dept": "abc", "address":{"city": "pune", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"atharva", "lastName":"sharma"}, "age":25, "id":1246, "dept": "abc", "address":{"city": "thane", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"ashok", "lastName":"verma"}, "age":22, "id":1247, "dept": "xyz", "address":{"city": "delhi", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"ashish", "lastName":"patil"}, "age":25, "id":1248, "dept": "pqr", "address":{"city": "mumbai", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"amit", "lastName":"singh"}, "age":28, "id":1249, "dept": "xyz", "address":{"city": "mumbai", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"akshay", "lastName":"chavan"}, "age":27, "id":1250, "dept": "xyz", "address":{"city": "pune", "country":"india"}})
+
+db.employee.insertOne({"name":{"firstName":"yash", "lastName":"pandey"}, "age":25, "id":1251, "dept": "pqr", "address":{"city": "delhi", "country":"india"}})
+

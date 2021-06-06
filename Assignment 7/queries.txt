@@ -1,0 +1,21 @@
+delimiter //
+create procedure test(
+in cid int
+)
+begin 
+declare is_done integer default 0;
+declare total integer;
+declare class varchar(15) default "";
+declare cname varchar(30) default "";
+select total_purchase into total from customer where cust_id = cid;
+select name into cname from customer where cust_id = cid;
+if total >= 10000 and total <= 20000 then
+set class = 'platinum';
+elseif total >= 5000 and total <= 9999 then
+set class = 'gold';
+elseif total >= 2000 and total <= 4999 then
+set class = 'silver';
+end if;
+insert into category values(cid, cname, class);
+end//
+delimiter ;

@@ -1,0 +1,50 @@
+delimiter //
+create procedure calcFine2()
+begin 
+declare cntr int;
+declare diff int;
+declare fine int;
+declare dop date;
+select count(cust_id) into cntr from customer;
+while cntr > 0 do
+select dateOfPayment into dop from customer where cust_id = cntr;
+set diff = datediff(curdate(), dop);
+if diff < 15 then
+set fine = 0;
+elseif diff >= 15 and diff <= 30 then
+set fine = 5 * diff;
+insert into fine values(cntr, curdate(), fine);
+else 
+set fine = 75 + ((diff-15) * 50);
+insert into fine values(cntr, curdate(), fine);
+end if;
+set cntr = cntr - 1;
+end while;
+end//
+
+
+
+delimiter //
+create procedure calcFine(
+in cid int
+)
+begin 
+declare diff int;
+declare fine int;
+declare dop date;
+declare exit handler for sqlexception select 'Table not found';
+declare exit handler for not found select 'Id not found';
+select dateOfPayment into dop from customer where cust_id = cid;
+set diff = datediff(curdate(), dop);
+if diff < 15 then
+set fine = 0;
+elseif diff >= 15 and diff <= 30 then
+set fine = 5 * diff;
+insert into fine values(cid, curdate(), fine);
+else 
+set fine = 75 + ((diff-15) * 50);
+insert into fine values(cid, curdate(), fine);
+end if;
+update customer set status = 'p' 
+where cust_id = cid;
+end//
